@@ -263,3 +263,35 @@ print(f"Test set ELBO per sample: {test_elbo_per_sample:.4f}")
 # ADVANCED MODEL EVALUATION
 # -----------------
 
+# 4. Posterior Weight Visualization
+import matplotlib.pyplot as plt
+
+final_mu    = mu_param.detach()
+final_sigma = torch.exp(log_sigma_param).clamp(min=1e-3).detach()
+print("Final mu:", final_mu)
+print("Final sigma:", final_sigma)
+
+# Move variational parameters to CPU numpy
+weights_mu = final_mu.cpu().numpy()
+weights_sigma = final_sigma.cpu().numpy()
+param_names = [f"w{i}" for i in range(len(weights_mu))]
+
+# Plot posterior means with ±1 std-error bars
+plt.figure(figsize=(10, 4))
+plt.bar(param_names, weights_mu, yerr=weights_sigma, capsize=4)
+plt.axhline(0, color='gray', linewidth=0.8)
+plt.xlabel('Parameter')
+plt.ylabel('Posterior mean ± SD')
+plt.title('Posterior Weight Estimates with Uncertainty')
+plt.tight_layout()
+plt.show()
+
+# Short explanation
+#print("
+#Posterior Weight Visualization Explanation:
+#")
+#print("We plot each coefficient's posterior mean (μ) with an error bar representing one standard deviation (σ).
+#")
+#print("Parameters whose σ remains near 1 indicate that the approximate posterior remains at the prior;
+#")
+#print("parameters with σ much smaller than 1 show that the model is confident in that weight's deviation from zero.")
