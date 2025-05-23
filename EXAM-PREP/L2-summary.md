@@ -10,7 +10,7 @@ For many of my examples i will use the [MNIST dataset](https://en.wikipedia.org/
 
 So lets start easy. In this lecture i only want to roughly showcase what goes on in this specific part of the neural network. Like how is data passed down through the neurons and what actually happens here?
 
-![](./img/L5/hidden-layers.png)
+![](./img/L2/hidden-layers.png)
 
 Right now, the way we will think about this is that a neuron is just a thing that holds numbers and nothing else. In a given layer, a given neuron has connected edges to all prior neurons in the previus layer. When a neuron receives a value, it needs to be "modified and streamed" to all neurons in the next layer.
 
@@ -46,7 +46,7 @@ However, we have left one thing out which is very important and it is the activa
 
     Similar to the regular ReLU, we use leaky ReLU when we want to predict a number. We could for example pick regular ReLU if we want to ensure non-negativity and use leaky when we want negative inputs to have an effect on the outcome.
 
-    ![](./img/L5/relu-graph.png)
+    ![](./img/L2/relu-graph.png)
 
 3. **Sigmoid**
 
@@ -60,7 +60,7 @@ However, we have left one thing out which is very important and it is the activa
 
     This is an activation function just like the sigmoid but it is centered around the zero so it is convenient to use in early layers where we want zero-mean outputs. Using this instead of sigmoid really varies from case to case and we often need to validate results before deciding on one of them.
 
-    ![](./img/L5/sigmoid-tanh-graph.png)
+    ![](./img/L2/sigmoid-tanh-graph.png)
 
 5. **Softmax**
 
@@ -92,11 +92,11 @@ OK so gradient descent is actually quite hard to understand via text so i will u
 
 So when the testing data is fed to the model, and the loss is calculated, we can plot the relationships between the output nodes and the loss as a curved surface. From this surface we can apply the gradient descent algorithm to find the deepest slope or deepest crater of this surface which will in turn MINIMIZE the cost. The reason why we want a low cost is becuase the loss coefficient is then used to fine tune the weights and biases of the edges in the neural networks.
 
-![](./img/L5/gradient-descent-plot.png)
+![](./img/L2/gradient-descent-plot.png)
 
 Everytime we apply the negative gradient descent of the parameter vector (that contains all weights and biases), we will get a new vector that contains coefficients that we can multiply to the initial parameter vector and it tells us how much we need to nudge all weights and biases and when we do this over and over again untill we reach the deepest part of the surface, we now have a trained model for that surface.
 
-![](./img/L5/gradient-descent-formula.png)
+![](./img/L2/gradient-descent-formula.png)
 
 When this algorithm is then applied to all layers in the network and gradient descent is applied, we will start to see that the model that predicts the numbers will now give more confident predictions and instead of spreading out the numbers on the neurons in the output layers we will get something that looks more confident where a majority of the value lands on one neuron.
 
@@ -106,7 +106,7 @@ The gradient vector (the one on the right of the latest image) tells us two main
 
 So since we now are fairly confident in the gradient descent algorithm and we know how much we need to nudge all weights and biases for one node we now have a meassure of how "important" certain edges are...
 
-![](./img/L5/backprop.png)
+![](./img/L2/backprop.png)
 
 We can then from the output layer see which one of output neurons we need to light up for one test input. But keep in mind that this only holds for one of the layers. 
 
